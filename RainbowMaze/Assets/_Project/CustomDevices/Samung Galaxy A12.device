@@ -1,0 +1,46 @@
+{
+    "friendlyName": "Samsung Galaxy A12",
+    "version": 1,
+    "screens": [
+        {
+            "width": 720,
+            "height": 1600,
+            "dpi": 270.0,
+            "orientations": [
+                {
+                    "orientation": 1,
+                    "safeArea": {
+                        "x": 0,
+                        "y": 0,
+                        "width": 720,
+                        "height": 1540
+                    },
+                    "cutouts": [
+                        {
+                            "rect": {
+                                "x": 320,
+                                "y": 1540,
+                                "width": 80,
+                                "height": 60
+                            }
+                        }
+                    ]
+                }
+            ],
+            "presentation": {
+                "overlayPath": "" 
+            }
+        }
+    ],
+    "systemInfo": {
+        "deviceModel": "SM-A125F",
+        "deviceType": 1,
+        "operatingSystem": "Android OS 10",
+        "processorCount": 8,
+        "supportsAccelerometer": true,
+        "supportsAudio": true,
+        "supportsGyroscope": true,
+        "supportsLocationService": true,
+        "supportsVibration": true
+    }
+}
