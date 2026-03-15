@@ -347,7 +347,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.25, y: 0.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -393,7 +393,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ede5729bc99e1b4c93d47e337ab1b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  moveSpeed: 10
+  moveSpeed: 8
+  playerSprites:
+  - {fileID: -2311659948842064771, guid: 42b07382712a4e746bd6cf9c15f23dbe, type: 3}
+  - {fileID: -7352257935244090286, guid: b3f1773cef2763a43820706d23db95dc, type: 3}
+  - {fileID: -8619954028843176161, guid: ead33405b4b16b140a4748dda4c2332f, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,6 +553,14 @@ MonoBehaviour:
   height: 21
   floorTile: {fileID: 11400000, guid: ac2dcda1d4f8bb14ba5844bb6c224820, type: 2}
   wallTile: {fileID: 11400000, guid: 50aafbb090ca99e4488316b4696c9846, type: 2}
+  puzzleTilesPrefabs:
+  - {fileID: 3539453431801759715, guid: f3318bf0dcb80be4c905a954780f0de5, type: 3}
+  - {fileID: 2263987633083643003, guid: 7a8d981a605dd6541beb9fdc7c89cf25, type: 3}
+  - {fileID: 2900161716254298267, guid: 54cbe9b317b73db42a1a1e50b9efbef0, type: 3}
+  - {fileID: 7850122025424781400, guid: 39b7e1f7c7c13974198ed8e2f9ea2712, type: 3}
+  - {fileID: 1570656026080984546, guid: 45dfafcf703990d41af9908de4db33c1, type: 3}
+  - {fileID: 6182002228010788301, guid: 036dffcb38d91cc41a68d86c547f6978, type: 3}
+  - {fileID: 2432273587429250060, guid: a0957ba17807ee04598c228aefeb0681, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -59,12 +59,10 @@ public class TouchManager : MonoBehaviour
 
                     if (touchStartPosition.x < touchEndPosition.x)
                     {
-                        print("Direita");
                         player.Move(Vector2Int.right);
                     }
                     else
                     {
-                        print("Esquerda");
                         player.Move(Vector2Int.left);
                     }
                 }
@@ -74,19 +72,13 @@ public class TouchManager : MonoBehaviour
 
                     if (touchStartPosition.y < touchEndPosition.y)
                     {
-                        print("Cima");
                         player.Move(Vector2Int.up);
                     }
                     else
                     {
-                        print("Baixo");
                         player.Move(Vector2Int.down);
                     }
                 }
-            }
-            else
-            {
-                print("Deslizou não ein");
             }
         }
     }

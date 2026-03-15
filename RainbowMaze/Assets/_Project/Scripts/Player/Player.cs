@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public enum PlayerScent { Clean, Orange, Lemon }
+
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private Sprite[] playerSprites;
 
     private GridManager grid;
     private Vector2Int currentGridPosition;
@@ -10,41 +13,88 @@ public class Player : MonoBehaviour
     private Vector3 targetPosition;
     private bool isMoving;
 
+    public Vector2Int LastMove { get; private set; }
+    public PlayerScent CurrentScent { get; private set; } = PlayerScent.Clean;
+
+    private SpriteRenderer spriteRenderer;
+
+    private void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
     private void Update()
     {
+        //Só libera a movimentação caso tenha algum comando
         if (isMoving)
         {
+            //Move o jogador para a posição alvo
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
+            //Para evitar que o jogador fique preso entre Tiles, caso a distãncia dele seja próxima o suficiente da posição alvo, 
+            //o teleporta para a posição exata
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
+                CellData currentCellData = grid.GetCellData(currentGridPosition);
+
                 transform.position = targetPosition;
-                isMoving = false;
+                isMoving = false; //Desliga a movimentação
+
+                if (currentCellData.ContainedObject != null)
+                {
+                    currentCellData.ContainedObject.GetComponent<PuzzleTile>().PlayerEntered(this);
+                }
             }
         }
     }
 
-    public void Move(Vector2Int direction)
-    {
-        if (isMoving) return;
-
-        Vector2Int targetTile = currentGridPosition + direction;
-        CellData targetCellData = grid.GetCellData(targetTile);
-
-        if (targetCellData != null && targetCellData.Passable)
-        {
-            currentGridPosition = targetTile;
-            targetPosition = grid.CellToWorldConverter(currentGridPosition);
-        }
-
-        isMoving = true;
-    }
-
+    //Coloca o player na Célula/Tile definida
     public void Spawn(GridManager board, Vector2Int cell)
     {
         grid = board;
         currentGridPosition = cell;
 
         transform.position = (Vector3)grid.CellToWorldConverter(currentGridPosition);
+    }
+
+    //Move o jogador para 1 tile dependendo da direção
+    public void Move(Vector2Int direction)
+    {
+        if (isMoving) return; //Caso já esteja se movendo, não irá receber novos comandos
+
+        Vector2Int targetTile = currentGridPosition + direction; //Armazena aonde seria a próxima tile que o player se moveria
+        CellData targetCellData = grid.GetCellData(targetTile); //Pega a informação da Tile
+
+        if (targetCellData != null && targetCellData.IsPassable)
+        {
+            //Caso seja uma tile passável, troca a atual posição do player para essa tile e muda a posição alvo e
+            //libera a movimentação
+            currentGridPosition = targetTile;
+            targetPosition = grid.CellToWorldConverter(currentGridPosition);
+            isMoving = true;
+            LastMove = direction;
+        }
+    }
+
+    //Muda o sprite do player dependendo do cheiro
+    public void ChangeScent(PlayerScent scent)
+    {
+        if (CurrentScent == scent) return; //Caso o novo cheiro seja o mesmo do atual, não faça nada
+        
+        switch (scent)
+        {
+            case PlayerScent.Clean:
+                CurrentScent = PlayerScent.Clean;
+                spriteRenderer.sprite = playerSprites[(int)PlayerScent.Clean];
+                break;
+            case PlayerScent.Orange:
+                CurrentScent = PlayerScent.Orange;
+                spriteRenderer.sprite = playerSprites[(int)PlayerScent.Orange];
+                break;
+            case PlayerScent.Lemon:
+                CurrentScent = PlayerScent.Lemon;
+                spriteRenderer.sprite = playerSprites[(int)PlayerScent.Lemon];
+                break;
+        }
     }
 }

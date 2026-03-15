@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class CellData : MonoBehaviour
+[System.Serializable]
+public class CellData
 {
-    public bool Passable { get; set; }
+    public bool IsPassable { get; set; }
+    public PuzzleTile ContainedObject;
 }
