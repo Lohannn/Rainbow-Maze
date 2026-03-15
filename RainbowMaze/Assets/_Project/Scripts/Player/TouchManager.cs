@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class TouchManager : MonoBehaviour
 {
     [Header("Touch/Swipe")]
     [SerializeField] private float swipeSensitivity = 50f;
@@ -11,11 +11,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 touchEndPosition;
     private float currentSwipeTime;
 
-    //PlayerController player;
+    Player player;
 
     private void Awake()
     {
-        //player = GetComponent<PlayerController>();
+        player = GetComponent<Player>();
     }
 
     private void Update()
@@ -60,10 +60,12 @@ public class PlayerController : MonoBehaviour
                     if (touchStartPosition.x < touchEndPosition.x)
                     {
                         print("Direita");
+                        player.Move(Vector2Int.right);
                     }
                     else
                     {
                         print("Esquerda");
+                        player.Move(Vector2Int.left);
                     }
                 }
                 else
@@ -73,10 +75,12 @@ public class PlayerController : MonoBehaviour
                     if (touchStartPosition.y < touchEndPosition.y)
                     {
                         print("Cima");
+                        player.Move(Vector2Int.up);
                     }
                     else
                     {
                         print("Baixo");
+                        player.Move(Vector2Int.down);
                     }
                 }
             }
