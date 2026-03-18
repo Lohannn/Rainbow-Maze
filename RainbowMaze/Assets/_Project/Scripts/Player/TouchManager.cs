@@ -20,11 +20,37 @@ public class TouchManager : MonoBehaviour
 
     private void Update()
     {
+        #if UNITY_EDITOR
+        KeyboardMove();
+        #endif
+
         //Caso não tenha nenhum toque na tela, não faça nada (Otimização)
         if (Input.touchCount == 0) return;
 
         Swipe();
     }
+
+#if UNITY_EDITOR
+    private void KeyboardMove()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            player.Move(Vector2Int.down);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            player.Move(Vector2Int.right);
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            player.Move(Vector2Int.up);
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            player.Move(Vector2Int.left);
+        }
+    }
+#endif
 
     private void Swipe()
     {

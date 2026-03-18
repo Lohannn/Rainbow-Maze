@@ -8,6 +8,6 @@ public class ElectricityTile : PuzzleTile
     {
         print("O player entrou na ElectricityTile, movendo para trás!");
 
-        player.Move(-player.LastMove); //Move o player para a direção oposta do movimento anterior, ou seja, para trás
+        player.Move(-player.LastMove, true); //Move o player para a direção oposta do movimento anterior, ou seja, para trás
     }
 }

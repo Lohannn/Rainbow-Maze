@@ -75,6 +75,7 @@ public class GridManager : MonoBehaviour
         SpawnTileForTest(8, 3, WATER_TILE);
         SpawnTileForTest(3, 3, ELECTRICITY_TILE);
         SpawnTileForTest(3, 4, WATER_TILE);
+        SpawnTileForTest(5, 16, VICTORY_TILE);
         #endregion
     }
 

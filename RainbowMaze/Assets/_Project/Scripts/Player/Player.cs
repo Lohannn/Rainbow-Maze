@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private Sprite[] playerSprites;
 
+    public int Steps { get; private set; }
+
     private GridManager grid;
     private Vector2Int currentGridPosition;
 
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
     public PlayerScent CurrentScent { get; private set; } = PlayerScent.Clean;
 
     private SpriteRenderer spriteRenderer;
+    [SerializeField] private UIManager mainCanvas;
 
     private void Start()
     {
@@ -58,7 +61,7 @@ public class Player : MonoBehaviour
     }
 
     //Move o jogador para 1 tile dependendo da direção
-    public void Move(Vector2Int direction)
+    public void Move(Vector2Int direction, bool hasSpecialEffect = false)
     {
         if (isMoving) return; //Caso já esteja se movendo, não irá receber novos comandos
 
@@ -73,6 +76,11 @@ public class Player : MonoBehaviour
             targetPosition = grid.CellToWorldConverter(currentGridPosition);
             isMoving = true;
             LastMove = direction;
+
+            if (!hasSpecialEffect) {
+                Steps++;
+                mainCanvas.UpdateSteps(Steps);
+            } 
         }
     }
 

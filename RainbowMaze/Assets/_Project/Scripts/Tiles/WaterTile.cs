@@ -5,14 +5,6 @@ public class WaterTile : PuzzleTile
 {
     public override bool IsPassable => true;
 
-    public WaterTile() { }
-    
-    public WaterTile(GridManager grid, Vector2Int cellPosition)
-    {
-        Board = grid;
-        CellPosition = cellPosition;
-    }
-
     public override void PlayerEntered(Player player)
     {
         Vector2Int[] directions = new Vector2Int[]
@@ -28,7 +20,7 @@ public class WaterTile : PuzzleTile
             if (Board.GetCellData(CellPosition + direction).ContainedObject is ElectricityTile)
             {
                 print("O player entrou na WaterTile, mas tem uma ElectricityTile ao lado, movendo para trás!");
-                player.Move(-player.LastMove);
+                player.Move(-player.LastMove, true);
                 return;
             }
         }
@@ -36,7 +28,7 @@ public class WaterTile : PuzzleTile
         if (player.CurrentScent == Player.PlayerScent.Orange)
         {
             print("O player entrou na WaterTile, mas tem o cheiro de laranja, movendo para trás!");
-            player.Move(-player.LastMove);
+            player.Move(-player.LastMove, true);
         }
         else if (player.CurrentScent == Player.PlayerScent.Lemon)
         {

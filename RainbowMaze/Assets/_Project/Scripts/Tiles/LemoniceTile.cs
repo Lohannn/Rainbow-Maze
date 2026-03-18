@@ -9,6 +9,6 @@ public class LemoniceTile : PuzzleTile
         print("O player entrou na LemoniceTile, agora tem cheiro de limão e move pra frente!");
 
         player.ChangeScent(Player.PlayerScent.Lemon);
-        player.Move(player.LastMove);
+        player.Move(player.LastMove, true);
     }
 }
