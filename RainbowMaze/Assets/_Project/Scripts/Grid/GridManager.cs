@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -27,9 +28,11 @@ public class GridManager : MonoBehaviour
     private Tilemap tilemap;
     private Grid grid;
     private CellData[,] gridData;
+    private Vector2Int[] mazeTilesPositions;
 
     private void Start()
     {
+        mazeTilesPositions = Enumerable.Range(1, width).SelectMany(x => Enumerable.Range(4, 10).Select(y => new Vector2Int(x, y))).ToArray();
         tilemap = GetComponentInChildren<Tilemap>();
         grid = GetComponentInChildren<Grid>();
         gridData = new CellData[width, height]; //Criando o Array 2D para armazenar as Tiles com o comprimento e a largura do Grid
@@ -40,6 +43,7 @@ public class GridManager : MonoBehaviour
             // Tile: Coordenada X
             for (int x = 0; x < width; x++)
             {
+                Vector2Int currentTilePosition = new Vector2Int(x, y);
                 Tile currentTile;
                 gridData[x, y] = new CellData(); //Adiciona o CellData para entregar o estado da Tiel
 
@@ -54,6 +58,11 @@ public class GridManager : MonoBehaviour
                     //Caso não, adiciona um tile de piso e define que é passável
                     currentTile = floorTile;
                     gridData[x, y].IsPassable = true;
+
+                    if (mazeTilesPositions.Contains(currentTilePosition))
+                    {
+                        SpawnTile(currentTilePosition.x, currentTilePosition.y, PATH_TILE);
+                    }
                 }
 
                 //Adiciona de fato a Tile ao mapa
@@ -65,21 +74,21 @@ public class GridManager : MonoBehaviour
         player.Spawn(this, new Vector2Int(5, 2));
 
         //TESTE DOS TILES
-        #region Teste de Tiles
-        SpawnTileForTest(5, 3, BLOCK_TILE);
-        SpawnTileForTest(5, 4, PATH_TILE);
-        SpawnTileForTest(7, 4, LEMONICE_TILE);
-        SpawnTileForTest(7, 5, LEMONICE_TILE);
-        SpawnTileForTest(7, 6, LEMONICE_TILE);
-        SpawnTileForTest(7, 3, ORANGE_FILE);
-        SpawnTileForTest(8, 3, WATER_TILE);
-        SpawnTileForTest(3, 3, ELECTRICITY_TILE);
-        SpawnTileForTest(3, 4, WATER_TILE);
-        SpawnTileForTest(5, 16, VICTORY_TILE);
-        #endregion
+        //#region Teste de Tiles
+        //SpawnTile(5, 3, BLOCK_TILE);
+        //SpawnTile(5, 4, PATH_TILE);
+        //SpawnTile(7, 4, LEMONICE_TILE);
+        //SpawnTile(7, 5, LEMONICE_TILE);
+        //SpawnTile(7, 6, LEMONICE_TILE);
+        //SpawnTile(7, 3, ORANGE_FILE);
+        //SpawnTile(8, 3, WATER_TILE);
+        //SpawnTile(3, 3, ELECTRICITY_TILE);
+        //SpawnTile(3, 4, WATER_TILE);
+        //SpawnTile(5, 16, VICTORY_TILE);
+        //#endregion
     }
 
-    private void SpawnTileForTest(int x, int y, int prefabIndex)
+    private void SpawnTile(int x, int y, int prefabIndex)
     {
         CellData data = gridData[x, y]; 
 
