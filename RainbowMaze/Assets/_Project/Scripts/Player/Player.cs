@@ -19,11 +19,13 @@ public class Player : MonoBehaviour
     public PlayerScent CurrentScent { get; private set; } = PlayerScent.Clean;
 
     private SpriteRenderer spriteRenderer;
+    private PlayerAudioManager audioManager;
     [SerializeField] private UIManager mainCanvas;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioManager = GetComponent<PlayerAudioManager>();
     }
 
     private void Update()
@@ -78,9 +80,14 @@ public class Player : MonoBehaviour
             LastMove = direction;
 
             if (!hasSpecialEffect) {
+                audioManager.PlaySound(audioManager.MOVE);
                 Steps++;
                 mainCanvas.UpdateSteps(Steps);
             } 
+        }
+        else if(!targetCellData.IsPassable)
+        {
+            audioManager.PlaySound(audioManager.CANT_PASS);
         }
     }
 
@@ -104,5 +111,7 @@ public class Player : MonoBehaviour
                 spriteRenderer.sprite = playerSprites[(int)PlayerScent.Lemon];
                 break;
         }
+
+        audioManager.PlaySound(audioManager.SCENT_CHANGE);
     }
 }

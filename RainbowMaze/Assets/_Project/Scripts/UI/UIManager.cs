@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     {
         textFewestSteps.text = $"Record:{PlayerData.FewestSteps}";
         textMaze.text = $"Maze {PlayerData.CurrentMaze}";
-        textMazesPassed.text = $"Mazes:{PlayerData.MazesPassed}";
+        textMazesPassed.text = $"Passed:{PlayerData.MazesPassed}";
     }
 
     public void UpdateSteps(int steps)

@@ -5,6 +5,14 @@ public class WaterTile : PuzzleTile
 {
     public override bool IsPassable => true;
 
+    private TileAudioManager audioManager;
+
+    private void Start()
+    {
+        audioManager = GetComponent<TileAudioManager>();
+        MainCamera = Camera.main.GetComponent<CameraManager>();
+    }
+
     public override void PlayerEntered(Player player)
     {
         Vector2Int[] directions = new Vector2Int[]
@@ -19,7 +27,8 @@ public class WaterTile : PuzzleTile
         {
             if (Board.GetCellData(CellPosition + direction).ContainedObject is ElectricityTile)
             {
-                print("O player entrou na WaterTile, mas tem uma ElectricityTile ao lado, movendo para trás!");
+                StartCoroutine(MainCamera.ElectricSchockEffect());
+                audioManager.PlaySound(audioManager.ELECTRICITY_TILE);
                 player.Move(-player.LastMove, true);
                 return;
             }
@@ -27,13 +36,15 @@ public class WaterTile : PuzzleTile
 
         if (player.CurrentScent == Player.PlayerScent.Orange)
         {
-            print("O player entrou na WaterTile, mas tem o cheiro de laranja, movendo para trás!");
+            audioManager.PlaySound(audioManager.PIRANHA_TILE);
             player.Move(-player.LastMove, true);
+            return;
         }
         else if (player.CurrentScent == Player.PlayerScent.Lemon)
         {
-            print("O player entrou na WaterTile, limpando seu cheiro!");
             player.ChangeScent(Player.PlayerScent.Clean);
         }
+
+        audioManager.PlaySound(audioManager.WATER_TILE);
     }
 }

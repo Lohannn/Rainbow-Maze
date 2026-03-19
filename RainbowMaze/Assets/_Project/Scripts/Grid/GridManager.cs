@@ -59,10 +59,10 @@ public class GridManager : MonoBehaviour
                     currentTile = floorTile;
                     gridData[x, y].IsPassable = true;
 
-                    if (mazeTilesPositions.Contains(currentTilePosition))
-                    {
-                        SpawnTile(currentTilePosition.x, currentTilePosition.y, PATH_TILE);
-                    }
+                    //if (mazeTilesPositions.Contains(currentTilePosition))
+                    //{
+                    //    SpawnTile(currentTilePosition.x, currentTilePosition.y, PATH_TILE);
+                    //}
                 }
 
                 //Adiciona de fato a Tile ao mapa
@@ -70,22 +70,24 @@ public class GridManager : MonoBehaviour
             }
         }
 
+        SpawnTile(5, 16, VICTORY_TILE);
+
         //Corrige a posição do Player para que fique dentro de uma tile do grid
         player.Spawn(this, new Vector2Int(5, 2));
 
         //TESTE DOS TILES
-        //#region Teste de Tiles
-        //SpawnTile(5, 3, BLOCK_TILE);
-        //SpawnTile(5, 4, PATH_TILE);
-        //SpawnTile(7, 4, LEMONICE_TILE);
-        //SpawnTile(7, 5, LEMONICE_TILE);
-        //SpawnTile(7, 6, LEMONICE_TILE);
-        //SpawnTile(7, 3, ORANGE_FILE);
-        //SpawnTile(8, 3, WATER_TILE);
-        //SpawnTile(3, 3, ELECTRICITY_TILE);
-        //SpawnTile(3, 4, WATER_TILE);
-        //SpawnTile(5, 16, VICTORY_TILE);
-        //#endregion
+        #region Teste de Tiles
+        SpawnTile(5, 3, BLOCK_TILE);
+        SpawnTile(5, 4, PATH_TILE);
+        SpawnTile(7, 4, LEMONICE_TILE);
+        SpawnTile(7, 5, LEMONICE_TILE);
+        SpawnTile(7, 6, LEMONICE_TILE);
+        SpawnTile(7, 3, ORANGE_FILE);
+        SpawnTile(8, 3, WATER_TILE);
+        SpawnTile(3, 3, ELECTRICITY_TILE);
+        SpawnTile(3, 4, WATER_TILE);
+        SpawnTile(5, 16, VICTORY_TILE);
+        #endregion
     }
 
     private void SpawnTile(int x, int y, int prefabIndex)

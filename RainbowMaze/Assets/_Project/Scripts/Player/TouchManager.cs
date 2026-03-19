@@ -30,11 +30,11 @@ public class TouchManager : MonoBehaviour
         Swipe();
     }
 
-#if UNITY_EDITOR
     private void KeyboardMove()
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
+            print("Oi");
             player.Move(Vector2Int.down);
         }
         else if (Input.GetKeyDown(KeyCode.D))
@@ -50,7 +50,6 @@ public class TouchManager : MonoBehaviour
             player.Move(Vector2Int.left);
         }
     }
-#endif
 
     private void Swipe()
     {
