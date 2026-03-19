@@ -6,8 +6,14 @@ public class LemoniceTile : PuzzleTile
 
     public override void PlayerEntered(Player player)
     {
-
-        player.ChangeScent(Player.PlayerScent.Lemon);
-        player.Move(player.LastMove, true);
+        if (!player.isDamaged)
+        {
+            player.ChangeScent(Player.PlayerScent.Lemon);
+            player.Move(player.LastMove, true);
+        }
+        else
+        {
+            player.isDamaged = false;
+        }
     }
 }

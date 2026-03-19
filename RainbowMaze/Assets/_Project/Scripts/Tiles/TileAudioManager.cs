@@ -2,12 +2,6 @@ using UnityEngine;
 
 public class TileAudioManager : MonoBehaviour
 {
-    [SerializeField] private AudioClip[] audioClips;
-
-    public readonly int WATER_TILE = 0;
-    public readonly int ELECTRICITY_TILE = 1;
-    public readonly int PIRANHA_TILE = 2;
-
     private AudioSource audioSource;
 
     private void Start()
@@ -15,8 +9,8 @@ public class TileAudioManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void PlaySound(int clipIndex)
+    public void PlaySound(AudioClip clip)
     {
-        audioSource.PlayOneShot(audioClips[clipIndex]);
+        audioSource.PlayOneShot(clip);
     }
 }

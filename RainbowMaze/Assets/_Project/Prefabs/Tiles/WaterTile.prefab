@@ -106,6 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8008d1596309be4ca61adf1d5032b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterTile
+  waterSplash: {fileID: 8300000, guid: 7be5ef30f2d2684469964145a58a6b6e, type: 3}
+  electricShock: {fileID: 8300000, guid: 0bb2a8ea772eafd4a8f0445c1dcd3c7e, type: 3}
+  piranhaBite: {fileID: 8300000, guid: 8ac2c6de777732b4da798d804fdb36d6, type: 3}
 --- !u!82 &5695033518878996126
 AudioSource:
   m_ObjectHideFlags: 0
@@ -215,7 +218,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fb30a9202d680459e8718f455f39d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TileAudioManager
-  audioClips:
-  - {fileID: 8300000, guid: 7be5ef30f2d2684469964145a58a6b6e, type: 3}
-  - {fileID: 8300000, guid: 0bb2a8ea772eafd4a8f0445c1dcd3c7e, type: 3}
-  - {fileID: 8300000, guid: 8ac2c6de777732b4da798d804fdb36d6, type: 3}

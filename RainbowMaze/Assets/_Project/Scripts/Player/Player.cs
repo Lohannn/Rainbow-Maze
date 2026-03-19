@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Sprite[] playerSprites;
 
     public int Steps { get; private set; }
+    public bool CanMove { private get; set; } = true;
+    public bool isDamaged { get; set; }
 
     private GridManager grid;
     private Vector2Int currentGridPosition;
@@ -56,6 +58,10 @@ public class Player : MonoBehaviour
     //Coloca o player na Célula/Tile definida
     public void Spawn(GridManager board, Vector2Int cell)
     {
+        Steps = 0;
+
+        mainCanvas.UpdateSteps(Steps);
+
         grid = board;
         currentGridPosition = cell;
 
@@ -65,7 +71,7 @@ public class Player : MonoBehaviour
     //Move o jogador para 1 tile dependendo da direção
     public void Move(Vector2Int direction, bool hasSpecialEffect = false)
     {
-        if (isMoving) return; //Caso já esteja se movendo, não irá receber novos comandos
+        if (isMoving || !CanMove) return; //Caso já esteja se movendo, não irá receber novos comandos
 
         Vector2Int targetTile = currentGridPosition + direction; //Armazena aonde seria a próxima tile que o player se moveria
         CellData targetCellData = grid.GetCellData(targetTile); //Pega a informação da Tile
@@ -78,6 +84,11 @@ public class Player : MonoBehaviour
             targetPosition = grid.CellToWorldConverter(currentGridPosition);
             isMoving = true;
             LastMove = direction;
+
+            if (isDamaged && targetCellData.ContainedObject is not LemoniceTile)
+            {
+                isDamaged = false;
+            }
 
             if (!hasSpecialEffect) {
                 audioManager.PlaySound(audioManager.MOVE);

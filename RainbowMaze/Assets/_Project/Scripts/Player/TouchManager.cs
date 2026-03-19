@@ -34,7 +34,6 @@ public class TouchManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            print("Oi");
             player.Move(Vector2Int.down);
         }
         else if (Input.GetKeyDown(KeyCode.D))

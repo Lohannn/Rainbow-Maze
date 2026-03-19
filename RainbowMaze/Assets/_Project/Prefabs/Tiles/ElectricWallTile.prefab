@@ -106,6 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4845abd454f4ce438ab659503f14d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ElectricityTile
+  electricShock: {fileID: 8300000, guid: 0bb2a8ea772eafd4a8f0445c1dcd3c7e, type: 3}
 --- !u!82 &8390279328564693138
 AudioSource:
   m_ObjectHideFlags: 0
@@ -215,7 +216,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26fb30a9202d680459e8718f455f39d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TileAudioManager
-  audioClips:
-  - {fileID: 8300000, guid: 7be5ef30f2d2684469964145a58a6b6e, type: 3}
-  - {fileID: 8300000, guid: 0bb2a8ea772eafd4a8f0445c1dcd3c7e, type: 3}
-  - {fileID: 8300000, guid: 8ac2c6de777732b4da798d804fdb36d6, type: 3}

@@ -5,6 +5,8 @@ public class ElectricityTile : PuzzleTile
 {
     public override bool IsPassable => true;
 
+    [SerializeField] private AudioClip electricShock;
+
     private TileAudioManager audioManager;
 
     private void Start()
@@ -16,7 +18,8 @@ public class ElectricityTile : PuzzleTile
     public override void PlayerEntered(Player player)
     {
         StartCoroutine(MainCamera.ElectricSchockEffect());
-        audioManager.PlaySound(audioManager.ELECTRICITY_TILE);
+        audioManager.PlaySound(electricShock);
+        player.isDamaged = true;
         player.Move(-player.LastMove, true); //Move o player para a direção oposta do movimento anterior, ou seja, para trás
     }
 }

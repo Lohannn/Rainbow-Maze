@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -32,7 +33,7 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        mazeTilesPositions = Enumerable.Range(1, width).SelectMany(x => Enumerable.Range(4, 10).Select(y => new Vector2Int(x, y))).ToArray();
+        mazeTilesPositions = Enumerable.Range(1, width - 2).SelectMany(x => Enumerable.Range(4, 10).Select(y => new Vector2Int(x, y))).ToArray();
         tilemap = GetComponentInChildren<Tilemap>();
         grid = GetComponentInChildren<Grid>();
         gridData = new CellData[width, height]; //Criando o Array 2D para armazenar as Tiles com o comprimento e a largura do Grid
@@ -58,11 +59,6 @@ public class GridManager : MonoBehaviour
                     //Caso não, adiciona um tile de piso e define que é passável
                     currentTile = floorTile;
                     gridData[x, y].IsPassable = true;
-
-                    //if (mazeTilesPositions.Contains(currentTilePosition))
-                    //{
-                    //    SpawnTile(currentTilePosition.x, currentTilePosition.y, PATH_TILE);
-                    //}
                 }
 
                 //Adiciona de fato a Tile ao mapa
@@ -71,28 +67,41 @@ public class GridManager : MonoBehaviour
         }
 
         SpawnTile(5, 16, VICTORY_TILE);
+        
+        CreateMaze();
 
         //Corrige a posição do Player para que fique dentro de uma tile do grid
         player.Spawn(this, new Vector2Int(5, 2));
 
         //TESTE DOS TILES
         #region Teste de Tiles
-        SpawnTile(5, 3, BLOCK_TILE);
-        SpawnTile(5, 4, PATH_TILE);
-        SpawnTile(7, 4, LEMONICE_TILE);
-        SpawnTile(7, 5, LEMONICE_TILE);
-        SpawnTile(7, 6, LEMONICE_TILE);
-        SpawnTile(7, 3, ORANGE_FILE);
-        SpawnTile(8, 3, WATER_TILE);
-        SpawnTile(3, 3, ELECTRICITY_TILE);
-        SpawnTile(3, 4, WATER_TILE);
-        SpawnTile(5, 16, VICTORY_TILE);
+        //SpawnTile(5, 3, BLOCK_TILE);
+        //SpawnTile(5, 4, PATH_TILE);
+        //SpawnTile(7, 4, LEMONICE_TILE);
+        //SpawnTile(7, 5, LEMONICE_TILE);
+        //SpawnTile(7, 6, LEMONICE_TILE);
+        //SpawnTile(7, 7, ELECTRICITY_TILE);
+        //SpawnTile(7, 3, ORANGE_FILE);
+        //SpawnTile(8, 3, WATER_TILE);
+        //SpawnTile(3, 3, ELECTRICITY_TILE);
+        //SpawnTile(3, 4, WATER_TILE);
         #endregion
     }
 
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.Spawn(this, new Vector2Int(5, 2));
+            player.ChangeScent(Player.PlayerScent.Clean);
+        }
+    }
+#endif
+
     private void SpawnTile(int x, int y, int prefabIndex)
     {
-        CellData data = gridData[x, y]; 
+        CellData data = gridData[x, y];
 
         PuzzleTile newPuzzleTile = (Instantiate(
             puzzleTilesPrefabs[prefabIndex],
@@ -103,6 +112,14 @@ public class GridManager : MonoBehaviour
         data.ContainedObject.CellPosition = new Vector2Int(x, y);
         data.ContainedObject.Board = this;
         data.IsPassable = newPuzzleTile.IsPassable;
+    }
+
+    private void CreateMaze()
+    {
+        foreach (Vector2Int tilePosition in mazeTilesPositions)
+        {
+            SpawnTile(tilePosition.x, tilePosition.y, Random.Range(0, puzzleTilesPrefabs.Length - 1));
+        }
     }
 
     //Converte a coordenada de uma Célula/Tile para posição do mundo (x, y, z)

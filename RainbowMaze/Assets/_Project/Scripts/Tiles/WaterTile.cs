@@ -5,6 +5,10 @@ public class WaterTile : PuzzleTile
 {
     public override bool IsPassable => true;
 
+    [SerializeField] private AudioClip waterSplash;
+    [SerializeField] private AudioClip electricShock;
+    [SerializeField] private AudioClip piranhaBite;
+
     private TileAudioManager audioManager;
 
     private void Start()
@@ -28,7 +32,8 @@ public class WaterTile : PuzzleTile
             if (Board.GetCellData(CellPosition + direction).ContainedObject is ElectricityTile)
             {
                 StartCoroutine(MainCamera.ElectricSchockEffect());
-                audioManager.PlaySound(audioManager.ELECTRICITY_TILE);
+                audioManager.PlaySound(electricShock);
+                player.isDamaged = true;
                 player.Move(-player.LastMove, true);
                 return;
             }
@@ -36,7 +41,8 @@ public class WaterTile : PuzzleTile
 
         if (player.CurrentScent == Player.PlayerScent.Orange)
         {
-            audioManager.PlaySound(audioManager.PIRANHA_TILE);
+            audioManager.PlaySound(piranhaBite);
+            player.isDamaged = true;
             player.Move(-player.LastMove, true);
             return;
         }
@@ -45,6 +51,6 @@ public class WaterTile : PuzzleTile
             player.ChangeScent(Player.PlayerScent.Clean);
         }
 
-        audioManager.PlaySound(audioManager.WATER_TILE);
+        audioManager.PlaySound(waterSplash);
     }
 }
