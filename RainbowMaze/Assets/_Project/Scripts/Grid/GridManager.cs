@@ -75,7 +75,7 @@ public class GridManager : MonoBehaviour
         int attempts = 0;
 
         // O grid irá gerar aleatoriamente as tiles do labirinto enquanto não tiver um puzzle solucionável ou caso demore demais
-        while (!mazeIsValid || attempts < 200) 
+        while (!mazeIsValid && attempts < 200) 
         {
             CreateMaze();
             //Libera o "Fantasma" para andar no labirinto e retorna true quando ele achar a primeira saída
