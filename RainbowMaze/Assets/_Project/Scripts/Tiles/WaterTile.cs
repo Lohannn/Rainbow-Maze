@@ -19,6 +19,33 @@ public class WaterTile : PuzzleTile
 
     public override void PlayerEntered(Player player)
     {
+        if (CheckForElectricAdjacents())
+        {
+            StartCoroutine(MainCamera.ElectricSchockEffect());
+            audioManager.PlaySound(electricShock);
+            player.IsDamaged = true;
+            player.Move(-player.LastMove, true);
+            return;
+        }
+
+        if (player.CurrentScent == Player.PlayerScent.Orange)
+        {
+            audioManager.PlaySound(piranhaBite);
+            player.IsDamaged = true;
+            player.Move(-player.LastMove, true);
+            return;
+        }
+        else if (player.CurrentScent == Player.PlayerScent.Lemon)
+        {
+            player.ChangeScent(Player.PlayerScent.Clean);
+        }
+
+        audioManager.PlaySound(waterSplash);
+    }
+
+    // Verifica se há uma ElectricityTile adjacente
+    public bool CheckForElectricAdjacents()
+    {
         Vector2Int[] directions = new Vector2Int[]
         {
             Vector2Int.up,
@@ -31,26 +58,10 @@ public class WaterTile : PuzzleTile
         {
             if (Board.GetCellData(CellPosition + direction).ContainedObject is ElectricityTile)
             {
-                StartCoroutine(MainCamera.ElectricSchockEffect());
-                audioManager.PlaySound(electricShock);
-                player.isDamaged = true;
-                player.Move(-player.LastMove, true);
-                return;
+                return true;
             }
         }
 
-        if (player.CurrentScent == Player.PlayerScent.Orange)
-        {
-            audioManager.PlaySound(piranhaBite);
-            player.isDamaged = true;
-            player.Move(-player.LastMove, true);
-            return;
-        }
-        else if (player.CurrentScent == Player.PlayerScent.Lemon)
-        {
-            player.ChangeScent(Player.PlayerScent.Clean);
-        }
-
-        audioManager.PlaySound(waterSplash);
+        return false;
     }
 }

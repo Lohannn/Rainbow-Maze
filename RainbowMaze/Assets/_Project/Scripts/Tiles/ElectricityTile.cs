@@ -19,7 +19,7 @@ public class ElectricityTile : PuzzleTile
     {
         StartCoroutine(MainCamera.ElectricSchockEffect());
         audioManager.PlaySound(electricShock);
-        player.isDamaged = true;
+        player.IsDamaged = true;
         player.Move(-player.LastMove, true); //Move o player para a direção oposta do movimento anterior, ou seja, para trás
     }
 }

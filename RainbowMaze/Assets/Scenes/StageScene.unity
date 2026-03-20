@@ -915,6 +915,7 @@ GameObject:
   - component: {fileID: 1029347868}
   - component: {fileID: 1029347867}
   - component: {fileID: 1029347869}
+  - component: {fileID: 1029347870}
   m_Layer: 0
   m_Name: BoardManager
   m_TagString: Untagged
@@ -975,6 +976,18 @@ MonoBehaviour:
   - {fileID: 1570656026080984546, guid: 45dfafcf703990d41af9908de4db33c1, type: 3}
   - {fileID: 6182002228010788301, guid: 036dffcb38d91cc41a68d86c547f6978, type: 3}
   - {fileID: 2432273587429250060, guid: a0957ba17807ee04598c228aefeb0681, type: 3}
+--- !u!114 &1029347870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029347866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0323213ed000e4eb5866ce4ae3de71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BFSMazeValidator
 --- !u!1 &1205123648
 GameObject:
   m_ObjectHideFlags: 0

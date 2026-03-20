@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 
     public int Steps { get; private set; }
     public bool CanMove { private get; set; } = true;
-    public bool isDamaged { get; set; }
+    public bool IsDamaged { get; set; }
 
     private GridManager grid;
     private Vector2Int currentGridPosition;
@@ -85,11 +85,16 @@ public class Player : MonoBehaviour
             isMoving = true;
             LastMove = direction;
 
-            if (isDamaged && targetCellData.ContainedObject is not LemoniceTile)
+            //Caso o player entre num tile que o force a voltar, será marcado como "Damaged",
+            //assim, caso ele caia novamente em um Lemonice, ele não irá deslizar novamente,
+            //e será curado (esse trecho evita que o player seja ferido e depois possa passar por outro tile de Lemonice
+            //sem deslizar)
+            if (IsDamaged && targetCellData.ContainedObject is not LemoniceTile)
             {
-                isDamaged = false;
+                IsDamaged = false;
             }
 
+            //Se o movimento não tiver um efeito especial, como os Tiles de Lemonice, ele irá contar como um passo normal
             if (!hasSpecialEffect) {
                 audioManager.PlaySound(audioManager.MOVE);
                 Steps++;

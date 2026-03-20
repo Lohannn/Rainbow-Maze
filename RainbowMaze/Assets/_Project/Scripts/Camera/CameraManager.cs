@@ -9,6 +9,7 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private Material screenMaterial;
 
+    //Efeito de choque elétrico, que faz a câmera tremer e a tela piscar em cores invertidas
     public IEnumerator ElectricSchockEffect()
     {
         if (!isShaking)
