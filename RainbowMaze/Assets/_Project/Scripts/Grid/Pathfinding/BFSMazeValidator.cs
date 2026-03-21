@@ -22,8 +22,6 @@ public class BFSMazeValidator : MonoBehaviour
     // Verifica se o labirinto atual é solucionável
     public bool IsMazeSolvable(Vector2Int start, int goalY, GridManager grid)
     {
-        print(grid);
-
         // Usando uma fila para o BFS e um HashSet para rastrear os estados visitados
         Queue<PhantomPlayerState> queue = new Queue<PhantomPlayerState>();
         HashSet<PhantomPlayerState> visited = new HashSet<PhantomPlayerState>();

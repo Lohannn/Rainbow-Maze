@@ -140,6 +140,12 @@ public class GridManager : MonoBehaviour
     }
     #endif
 
+    public void ResetPlayerPosition()
+    {
+        player.Spawn(this, new Vector2Int(5, 2));
+        player.ChangeScent(Player.PlayerScent.Clean);
+    }
+
     private void SpawnTile(int x, int y, int prefabIndex)
     {
         CellData data = gridData[x, y];
